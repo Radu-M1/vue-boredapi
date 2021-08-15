@@ -1,13 +1,14 @@
 <template>
   <form @submit="onSubmit" class="add-form">
     <div class="form-control">
-      <label for="noOfParticipants">Number of participants</label>
+      <label for="maxParticipants">Number of participants</label>
       <input
         type="number"
-        v-model="noOfParticipants"
-        name="noOfParticipants"
-        id="noOfParticipants"
+        v-model="maxParticipants"
+        name="maxParticipants"
+        id="maxParticipants"
         placeholder="None"
+        required
       />
     </div>
     <div class="form-control">
@@ -19,12 +20,14 @@
         id="maxPrice"
         placeholder="0"
         step="any"
+        required
       />
     </div>
     <div class="form-control">
       <div>
         <label for="type">Type</label>
-        <select v-model="typeRestriction">
+        <select v-model="typeRestriction" required>
+          <option value="" selected disabled>--Please, select a type--</option>
           <option v-for="item in types" :value="item.id">
             {{ item.text }}
           </option>
@@ -43,7 +46,7 @@ export default {
   },
   data() {
     return {
-      noOfParticipants: null,
+      maxParticipants: null,
       maxPrice: null,
       typeRestriction: null,
     };
@@ -52,10 +55,21 @@ export default {
     onSubmit(e) {
       e.preventDefault();
       const returnObject = {
-        noOfParticipants: this.noOfParticipants,
+        maxParticipants: this.maxParticipants,
         maxPrice: this.maxPrice,
         typeRestriction: this.typeRestriction,
       };
+      if (
+        (this.maxParticipants < 1 && this.maxParticipants) ||
+        this.maxParticipants === 0
+      ) {
+        return alert(
+          "Please, introduce a number of participants between [1, n]"
+        );
+      }
+      if ((this.maxPrice < 0 || this.maxPrice > 1) && this.maxPrice) {
+        return alert("Please, enter a maximum price between [0,1]");
+      }
       this.$emit("updateDisplay", returnObject);
     },
   },
@@ -90,5 +104,13 @@ export default {
 .form-control-check input {
   flex: 2;
   height: 20px;
+}
+select {
+  margin: auto;
+  width: 100%;
+}
+input {
+  margin: auto;
+  width: 100%;
 }
 </style>

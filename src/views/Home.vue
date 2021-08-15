@@ -1,14 +1,11 @@
 <template>
-  <!-- <div class="container"> -->
   <div class="card">
     <InputForm @update-display="updateDisplay" :types="types" />
     <Display :data="data" />
   </div>
-  <!-- </div> -->
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import InputForm from "../components/InputForm.vue";
 import Display from "../components/Display.vue";
 import axios from "axios";
@@ -22,10 +19,6 @@ export default {
       returnObject: {},
       data: {},
       types: [
-        {
-          id: "null",
-          text: "NULL",
-        },
         {
           id: "education",
           text: "Education",
@@ -72,26 +65,27 @@ export default {
   },
   methods: {
     async updateDisplay(returnObject) {
-      // { this.noOfParticipants, this.maxPrice, this.type} = returnObject;
-      // this.noOfParticipants = returnObject.noOfParticipants;
-      // this.maxPrice = returnObject.maxPrice;
-      // this.type = returnObject.type;
       this.returnObject = returnObject;
       const rawData = await axios({
         method: "get",
         baseURL: "https://www.boredapi.com/api/activity/",
         params: {
-          participants: returnObject.noOfParticipants,
+          participants: returnObject.maxParticipants,
           type: returnObject.typeRestriction,
           maxprice: returnObject.maxPrice,
+          // minPrice: returnObject.minPrice,
+          // price: returnObject.searchPrice,
+          // key: returnObject.searchKey,
+          // minaccessibility: returnObject.minAccessibility,
+          // maxaccessibility: returnObject.maxaccessibility,
         },
       });
+      if (Object.keys(rawData.data).includes("error")) {
+        return alert(rawData.data.error);
+      }
       this.data = rawData.data;
-      // console.log("AICI!", this.data.data);
       this.data = Object.assign(this.data, this.returnObject);
-      // console.log(this.activityList);
       this.$emit("add-to-list", this.data);
-      // this.$emit("has-filters", this.returnObject);
     },
   },
 };

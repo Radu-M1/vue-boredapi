@@ -37,7 +37,7 @@ export default {
       link: "",
       key: "9924423",
       accessibility: 0.3,
-      noOfParticipants: null, 
+      maxParticipants: null, 
       maxPrice: null, 
       typeRestriction: null
     };
@@ -95,7 +95,7 @@ body {
 }
 
 .table-row.header {
-  background-color: #ffeedb;
+  background-color: rgb(221, 135, 43);
   font-weight: bold;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -115,6 +115,17 @@ body {
 }
 .text:nth-of-type(5) {
   width: 100px;
+}
+/* .text:nth-of-type(8) {
+  width: 150px;
+} */
+
+.text:nth-of-type(n+8) {
+  color: blue;
+}
+
+.table-row:nth-of-type(2n+3) {
+  background-color: rgb(255, 238, 219);
 }
 
 .selected {

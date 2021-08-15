@@ -1,14 +1,27 @@
 <template>
-  <!-- <div>Number of participants: {{ returnObject.noOfParticipants }}</div>
-  <div>Max Price: {{ returnObject.maxPrice }}</div>
-  <div>Type: {{ returnObject.typeRestriction }}</div>
-  <div>Data: {{ data }}</div> -->
+  <h2 class="intro">Display Results:</h2>
   <div class="displayData">
     <div class="keys">
-      <div :class="[data[item] === null ? 'invisible' : '', 'key']" v-for="item in Object.keys(data)">{{ item }}</div>
+      <div
+        :class="[
+          data[item] === null ? 'invisible' : '',
+          'key',
+          ['maxParticipants', 'maxPrice', 'typeRestriction'].includes(item)
+            ? 'restrictions'
+            : '',
+        ]"
+        v-for="item in Object.keys(data)"
+      >
+        {{ item }}
+      </div>
     </div>
     <div class="values">
-      <div :class="[item === null ? 'invisible' : '', 'value']" v-for="item in data">{{ item }}</div>
+      <div
+        :class="[item === null ? 'invisible' : '', 'value']"
+        v-for="item in data"
+      >
+        {{ item }}
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +30,6 @@
 export default {
   name: "DisplayResult",
   props: {
-    // returnObject: Object,
     data: Object,
   },
 };
@@ -27,9 +39,9 @@ export default {
 .displayData {
   display: flex;
 }
-/* .displayData > * {
-  flex: 0 0 50%;
-} */
+.intro {
+  margin-bottom: 1em;
+}
 .keys {
   display: flex;
   flex-wrap: wrap;
@@ -52,7 +64,18 @@ export default {
   height: 2em;
 }
 .invisible {
-    /* background-color: blue; */
-    display: none;
+  display: none;
+}
+
+/* keeping .restrictions background color and color in case i want to display the query values for the result as well */
+
+.restrictions {
+  background-color: #3f7fbf;
+  color: white;
+  display: none;
+}
+
+.value:nth-of-type(n + 8) {
+  display: none;
 }
 </style>

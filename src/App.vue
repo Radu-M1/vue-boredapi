@@ -13,55 +13,33 @@
 </template>
 
 <script>
-// import { reactive } from "@vue/reactivity";
 export default {
   data() {
     return {
       activityList: [],
-      // filters: { "noOfParticipants": null, "maxPrice": null, "type": null }
     };
   },
   name: "App",
   methods: {
-    // hasFilters(returnObject) {
-    //   this.filters = returnObject;
-    // },
     addToList(data) {
-      // const dataFin = Object.assign(data.data, this.filters);
-      // data.data = dataFin;
-      // console.log(this.filters);
-      // console.log(dataFin);
-      // console.log(data)
+      // if(Object.keys(data).includes("error")){
+      //   return;
+      // }
       this.activityList.push(data);
-      // console.log(this.activityList);
-      // console.log(this.activityList);
-      // const activityList = reactive(this.activityList)
-      // persistent = this.activityList
-      // this.persistent.push(data)
-      // console.log(this.persistent)
-      // this.activityList = this.persistent;
-      // localStorage.setItem('activity-list', JSON.stringify(this.activityList))
     },
     refreshList() {
       this.activityList = [];
     },
   },
-  // created() {
-  //   this.persistent = reactive([])
-  // }
   mounted() {
     console.log("App Mounted");
     if (localStorage.getItem("activity-list")) {
       this.activityList = JSON.parse(localStorage.getItem("activity-list"));
     }
-    // if (localStorage.getItem("filters-flag")) {
-    //   this.filters = JSON.parse(localStorage.getItem("filters-flag"));
-    // }
   },
   watch: {
     activityList: {
       handler() {
-        // console.log("Activity List array changed!");
         localStorage.setItem(
           "activity-list",
           JSON.stringify(this.activityList)
@@ -69,25 +47,7 @@ export default {
       },
       deep: true,
     },
-
-    // filters: {
-    //   handler() {
-    //     // console.log("Activity List array changed!");
-    //     localStorage.setItem(
-    //       "filters-flag",
-    //       JSON.stringify(this.filters)
-    //     );
-    //   },
-    //   deep: true,
-    // },
   },
-  // created() {
-  //   this.filters = {
-  //     noOfParticipants: null,
-  //     maxPrice: null,
-  //     typeRestriction: null,
-  //   };
-  // },
 };
 </script>
 
@@ -114,6 +74,8 @@ body {
 
 #nav {
   padding: 30px;
+  text-align: center;
+  /* padding: auto; */
 }
 
 #nav a {
