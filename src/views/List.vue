@@ -1,8 +1,15 @@
 <template>
   <div class="list">
     <!-- <h1>This is an about page</h1> -->
-    <div :key="data.key" v-for="data in activityList">
-      {{ data.data }}
+    <button v-on:click="$emit('refresh-list')" class="btn btn-block refresh">
+      Refresh List
+    </button>
+    <div class="table-row header">
+      <div class="text" :class="item" v-for="item in Object.keys(dataDemo)">{{ item }}</div>
+    </div>
+    <div class="table-row" :key="data.key" v-for="data in activityList">
+      <!-- {{ data.data }} -->
+      <div class="text" v-for="item in data.data">{{ item }}</div>
     </div>
   </div>
 </template>
@@ -14,8 +21,82 @@ export default {
   props: {
     activityList: Array,
   },
+  created() {
+    this.dataDemo = {
+      activity: "Learn how to make a website",
+      type: "education",
+      participants: 1,
+      price: 0.1,
+      link: "",
+      key: "9924423",
+      accessibility: 0.3,
+    };
+  },
 
   // emits: ["delete-task", "toggle-reminder"],
 };
 </script>
+
+<style scoped>
+
+
+/* @text-width: 180px;
+@num-width: 80px; */
+/* 180px: 180px;
+80px: 80px; */
+
+.table-row {
+  display: flex;           display: -webkit-flex;
+  flex-direction: row;     -webkit-flex-direction: row;
+  flex-grow: 0;            -webkit-flex-grow: 0;
+  flex-wrap: wrap;         -webkit-flex-wrap: wrap;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+.text {
+  /* flex-grow: 1;            -webkit-flex-grow: 1; */
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-right: 20px;
+}
+
+
+.text {
+  width: 180px;
+}
+
+.num {
+  width: 80px;
+}
+
+body {
+  font-size: 20px;
+}
+
+.table-row {
+  border-bottom: 2px solid #e0e0e0;
+  border-collapse: collapse;
+  padding-top: 5px;
+}
+
+.table-row.header {
+  background-color: #FFEEDB;
+  font-weight: bold;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.refresh {
+  margin-bottom: 1em;
+}
+.participants {
+  flex-grow: 0.6;            -webkit-flex-grow: 0.6;
+}
+
+</style>
 

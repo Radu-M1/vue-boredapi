@@ -4,12 +4,16 @@
     <router-link to="/list">List</router-link>
   </div>
   <div class="container">
-    <router-view @add-to-list="addToList" :activityList="activityList"></router-view>
+    <router-view
+      @add-to-list="addToList"
+      @refresh-list="refreshList"
+      :activityList="activityList"
+    ></router-view>
   </div>
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity';
+// import { reactive } from "@vue/reactivity";
 export default {
   data() {
     return {
@@ -26,11 +30,33 @@ export default {
       // this.persistent.push(data)
       // console.log(this.persistent)
       // this.activityList = this.persistent;
+      // localStorage.setItem('activity-list', JSON.stringify(this.activityList))
     },
+    refreshList() {
+      this.activityList = [];
+    }
   },
   // created() {
   //   this.persistent = reactive([])
   // }
+  mounted() {
+    console.log("App Mounted");
+    if (localStorage.getItem("activity-list")) {
+      this.activityList = JSON.parse(localStorage.getItem("activity-list"));
+    }
+  },
+  watch: {
+    activityList: {
+      handler() {
+        // console.log("Activity List array changed!");
+        localStorage.setItem(
+          "activity-list",
+          JSON.stringify(this.activityList)
+        );
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 
@@ -81,6 +107,18 @@ body {
   border: 1px solid steelblue;
   padding: 30px;
   border-radius: 5px;
+  /* min-width: 700px; */
+}
+
+.list {
+  /* max-width: 700px; */
+  margin: 30px 30px auto 30px;
+  overflow: auto;
+  min-height: 300px;
+  /* border: 1px solid steelblue; */
+  padding: 30px;
+  border-radius: 5px;
+  min-width: 700px;
 }
 
 .btn {
@@ -89,7 +127,7 @@ body {
   color: #fff;
   border: none;
   padding: 10px 20px;
-  margin: 5px;
+  margin: auto;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
@@ -104,6 +142,7 @@ body {
 }
 .btn-block {
   display: block;
-  width: 100%;
+  /* width: 50%; */
+  width: 10em;
 }
 </style>

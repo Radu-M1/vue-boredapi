@@ -86,7 +86,7 @@ export default {
           maxprice: returnObject.maxPrice,
         },
       });
-      console.log(this.activityList);
+      // console.log(this.activityList);
       this.$emit("add-to-list", this.data);
     },
   },
