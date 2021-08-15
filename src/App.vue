@@ -18,12 +18,22 @@ export default {
   data() {
     return {
       activityList: [],
+      // filters: { "noOfParticipants": null, "maxPrice": null, "type": null }
     };
   },
   name: "App",
   methods: {
+    // hasFilters(returnObject) {
+    //   this.filters = returnObject;
+    // },
     addToList(data) {
+      // const dataFin = Object.assign(data.data, this.filters);
+      // data.data = dataFin;
+      // console.log(this.filters);
+      // console.log(dataFin);
+      // console.log(data)
       this.activityList.push(data);
+      // console.log(this.activityList);
       // console.log(this.activityList);
       // const activityList = reactive(this.activityList)
       // persistent = this.activityList
@@ -34,7 +44,7 @@ export default {
     },
     refreshList() {
       this.activityList = [];
-    }
+    },
   },
   // created() {
   //   this.persistent = reactive([])
@@ -44,6 +54,9 @@ export default {
     if (localStorage.getItem("activity-list")) {
       this.activityList = JSON.parse(localStorage.getItem("activity-list"));
     }
+    // if (localStorage.getItem("filters-flag")) {
+    //   this.filters = JSON.parse(localStorage.getItem("filters-flag"));
+    // }
   },
   watch: {
     activityList: {
@@ -56,7 +69,25 @@ export default {
       },
       deep: true,
     },
+
+    // filters: {
+    //   handler() {
+    //     // console.log("Activity List array changed!");
+    //     localStorage.setItem(
+    //       "filters-flag",
+    //       JSON.stringify(this.filters)
+    //     );
+    //   },
+    //   deep: true,
+    // },
   },
+  // created() {
+  //   this.filters = {
+  //     noOfParticipants: null,
+  //     maxPrice: null,
+  //     typeRestriction: null,
+  //   };
+  // },
 };
 </script>
 

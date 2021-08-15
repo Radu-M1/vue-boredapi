@@ -24,7 +24,7 @@
     <div class="form-control">
       <div>
         <label for="type">Type</label>
-        <select v-model="type">
+        <select v-model="typeRestriction">
           <option v-for="item in types" :value="item.id">
             {{ item.text }}
           </option>
@@ -45,7 +45,7 @@ export default {
     return {
       noOfParticipants: null,
       maxPrice: null,
-      type: null,
+      typeRestriction: null,
     };
   },
   methods: {
@@ -54,7 +54,7 @@ export default {
       const returnObject = {
         noOfParticipants: this.noOfParticipants,
         maxPrice: this.maxPrice,
-        type: this.type,
+        typeRestriction: this.typeRestriction,
       };
       this.$emit("updateDisplay", returnObject);
     },

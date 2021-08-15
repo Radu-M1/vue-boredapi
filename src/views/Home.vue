@@ -2,7 +2,7 @@
   <!-- <div class="container"> -->
   <div class="card">
     <InputForm @update-display="updateDisplay" :types="types" />
-    <Display :returnObject="returnObject" :data="data" />
+    <Display :data="data" />
   </div>
   <!-- </div> -->
 </template>
@@ -77,17 +77,21 @@ export default {
       // this.maxPrice = returnObject.maxPrice;
       // this.type = returnObject.type;
       this.returnObject = returnObject;
-      this.data = await axios({
+      const rawData = await axios({
         method: "get",
         baseURL: "https://www.boredapi.com/api/activity/",
         params: {
           participants: returnObject.noOfParticipants,
-          type: returnObject.type,
+          type: returnObject.typeRestriction,
           maxprice: returnObject.maxPrice,
         },
       });
+      this.data = rawData.data;
+      // console.log("AICI!", this.data.data);
+      this.data = Object.assign(this.data, this.returnObject);
       // console.log(this.activityList);
       this.$emit("add-to-list", this.data);
+      // this.$emit("has-filters", this.returnObject);
     },
   },
 };

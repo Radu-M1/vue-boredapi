@@ -5,12 +5,18 @@
       Refresh List
     </button>
     <div class="table-row header">
-      <div class="text" :class="item" v-for="item in Object.keys(dataDemo)">{{ item }}</div>
+      <div class="text" :class="item" v-for="item in Object.keys(dataDemo)">
+        {{ item }}
+      </div>
+      <!-- <div class="text" :class="item" v-for="item in Object.keys(filters)">
+        {{ item }}
+      </div> -->
     </div>
     <div class="table-row" :key="data.key" v-for="data in activityList">
       <!-- {{ data.data }} -->
-      <div class="text" v-for="item in data.data">{{ item }}</div>
+      <div class="text" v-for="item in data">{{ item }}</div>
     </div>
+    <!-- <div>{{filters}}</div> -->
   </div>
 </template>
 
@@ -20,6 +26,7 @@ export default {
   name: "List",
   props: {
     activityList: Array,
+    // filters: Object,
   },
   created() {
     this.dataDemo = {
@@ -30,6 +37,9 @@ export default {
       link: "",
       key: "9924423",
       accessibility: 0.3,
+      noOfParticipants: null, 
+      maxPrice: null, 
+      typeRestriction: null
     };
   },
 
@@ -38,23 +48,24 @@ export default {
 </script>
 
 <style scoped>
-
-
 /* @text-width: 180px;
 @num-width: 80px; */
 /* 180px: 180px;
 80px: 80px; */
 
 .table-row {
-  display: flex;           display: -webkit-flex;
-  flex-direction: row;     -webkit-flex-direction: row;
-  flex-grow: 0;            -webkit-flex-grow: 0;
-  flex-wrap: wrap;         -webkit-flex-wrap: wrap;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-grow: 0;
+  -webkit-flex-grow: 0;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
 }
-
 
 .text {
   /* flex-grow: 1;            -webkit-flex-grow: 1; */
@@ -65,9 +76,8 @@ export default {
   padding-right: 20px;
 }
 
-
 .text {
-  width: 180px;
+  width: 120px;
 }
 
 .num {
@@ -85,7 +95,7 @@ body {
 }
 
 .table-row.header {
-  background-color: #FFEEDB;
+  background-color: #ffeedb;
   font-weight: bold;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -94,9 +104,21 @@ body {
 .refresh {
   margin-bottom: 1em;
 }
-.participants {
-  flex-grow: 0.6;            -webkit-flex-grow: 0.6;
+/* .participants {
+  width: 80px;
+} */
+.text:nth-of-type(1) {
+  width: 400px;
+}
+.text:nth-of-type(2) {
+  width: 120px;
+}
+.text:nth-of-type(5) {
+  width: 100px;
 }
 
+.selected {
+  color: green;
+}
 </style>
 
