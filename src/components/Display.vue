@@ -50,6 +50,7 @@ export default {
 .values {
   display: flex;
   flex-wrap: wrap;
+  flex: 70%;
 }
 .key {
   background-color: #bfbf3f;
